@@ -27,14 +27,10 @@ for entry in tweets:
     if from_user not in users:
         G.add_node(from_user)
         users.append(from_user)
-    if to_user != "N/A" and to_user not in users:
+    if to_user != "N/A":
         G.add_node(to_user)
         users.append(to_user)
         G.add_edge(from_user, to_user)
-    # else:
-    #     G.add_edge(from_user, "N/A")
-# nx.draw(G, pos=nx.spring_layout(G), k=0.15, iterations=20, with_labels=True)
-# plt.show(G)
 
 # uses Louvain method
 # http://python-louvain.readthedocs.io/en/latest/api.html
@@ -54,7 +50,7 @@ for com in set(partition.values()) :
     used_colors.append(node_color)
     nx.draw_networkx_nodes(G, pos, list_nodes, node_size=20, node_color=node_color)
 nx.draw_networkx_edges(G, pos, alpha=0.5)
-# nx.draw_networkx_labels(G, pos, font_size=8)
+# nx.draw_networkx_labels(G, pos, font_size=10)
 
 # Calculate degree
 degree_scores = nx_alg.degree_centrality(G)

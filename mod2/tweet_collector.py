@@ -72,7 +72,7 @@ def main():
 
     with open('prochoice.csv', 'w') as f:
         writer = csv.writer(f, delimiter='|', quoting=csv.QUOTE_MINIMAL)
-        writer.writerow(["from_user", "to_user", "text"])
+        writer.writerow(["from", "to", "text"])
 
         consumer_key = "FhiyBRb0cz4zOoDfcHNVOyBDS"
         consumer_secret = "Q7MsbrPbFVzrwztW2KFH5JDGVpnSMhBlztwfJrLQeIGG591LST"

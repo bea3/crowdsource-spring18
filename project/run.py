@@ -1,8 +1,13 @@
 import csv
+import boto
+from boto.mturk.connection import MTurkConnection
+
+HOST_URL_SANDBOX = 'mechanicalturk.sandbox.amazonaws.com'
+HOST_URL = 'mechanicalturk.amazonaws.com'
 
 def read_csv():
     comments = []
-    with open('./dataset/jhuapl.csv', 'r') as csvfile:
+    with open('./jhuapl.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
         reader.next()
 
@@ -35,5 +40,23 @@ def read_csv():
     return comments
 
 
+def create_mturk_client():
+    f = open("aws_credentials.txt", "r")
+    credentials = f.readlines()
+    access_key = credentials[0].split('=')[-1].replace('\n','')
+    secret_access_key = credentials[1].split('=')[-1]
+    client = MTurkConnection(aws_access_key_id=access_key,
+                             aws_secret_access_key=secret_access_key,
+                             host=HOST_URL)
+    return client
+
+
+def create_mturk_hit(client):
+    account_balance = client.get_account_balance()[0]
+    print "You have a balance of: {}".format(account_balance)
+
+
 if __name__ == '__main__':
+    client = create_mturk_client()
     reviews = read_csv()
+    create_mturk_hit(client)
